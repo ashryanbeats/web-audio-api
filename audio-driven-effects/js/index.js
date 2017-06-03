@@ -1,18 +1,33 @@
 /* UI elements */
 const targetImage = document.querySelector("#target-image");
 const toggleEffectsButton = document.querySelector("#toggle-effects-button");
+const micSensitivityValueRange = document.querySelector("#mic-sensitivity-value-range");
+
+/* Strings */
+const toggleOnString = "Toggle on";
+const toggleOffString = "Toggle off";
+
+/* Styles */
+const offColor = "lightblue";
+const onColor = "pink";
 
 /* Globals */
 let audioContext;
+let micSensitivityValue = micSensitivityValueRange.value;
 let on = false;
 
 /* Event handlers */
 toggleEffectsButton.addEventListener("click", toggleEffects);
+micSensitivityValueRange.addEventListener("change", updateMicSensitivity);
+micSensitivityValueRange.addEventListener("input", updateMicSensitivity);
+
 
 /* Helper functions */
 function toggleEffects(e) {
   if (!on) {
     on = true;
+    toggleEffectsButton.textContent = toggleOffString;
+    toggleEffectsButton.style.backgroundColor = onColor;
     audioContext = new AudioContext();
     navigator.getUserMedia({audio: true}, handleUserMediaStream, handleUserMediaError);
   }
@@ -21,8 +36,14 @@ function toggleEffects(e) {
   }
 }
 
+function updateMicSensitivity(e) {
+  micSensitivityValue = e.srcElement.value;
+}
+
 function reset() {
   on = false;
+  toggleEffectsButton.textContent = toggleOnString;
+  toggleEffectsButton.style.backgroundColor = offColor;
   audioContext.close();
   targetImage.style.filter = "";
 }
@@ -61,7 +82,8 @@ function handleAudioProcess(e) {
   }
 
   let average = sum / buffer.length;
-  this.volume = Math.floor(average * 1500);
+  this.volume = Math.floor(average * micSensitivityValue);
+  console.log(micSensitivityValue);
 
   applyImageGlitch(this.volume);
 }

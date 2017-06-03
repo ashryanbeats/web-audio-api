@@ -2,6 +2,11 @@
 	font-family: sans-serif;
 }
 
-img {
-	max-width: 100%;
+button {
+	padding: 5px;
+	background-color: lightblue;
+}
+
+#target-image {
+	max-width: 50%;
 }
