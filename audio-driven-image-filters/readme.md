@@ -1,5 +1,7 @@
 # Audio-driven image filters
 
+[GitHub page here](https://ashryanbeats.github.io/web-audio-api/audio-driven-image-filters/).
+
 ## Using the demo page
 
 1. Click "Toggle on" (if it's your first time, allow access to your microphone)
