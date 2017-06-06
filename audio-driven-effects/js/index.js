@@ -2,6 +2,7 @@
 const targetImage = document.querySelector("#target-image");
 const toggleEffectsButton = document.querySelector("#toggle-effects-button");
 const micSensitivityValueRange = document.querySelector("#mic-sensitivity-value-range");
+// const cpuIntensityRange = document.querySelector("#cpu-intensity-range");
 
 /* Strings */
 const toggleOnString = "Toggle on";
@@ -14,6 +15,7 @@ const onColor = "pink";
 /* Globals */
 let audioContext;
 let micSensitivityValue = micSensitivityValueRange.value;
+//let cpuIntensity = cpuIntensityRange.value;
 let on = false;
 
 /* Event handlers */
@@ -51,7 +53,6 @@ function reset() {
 function handleUserMediaStream(stream) {
   const mediaStreamSource = audioContext.createMediaStreamSource(stream);
   const processor = createProcessor();
-  const analyser = audioContext.createAnalyser();
 
   mediaStreamSource.connect(processor);
 }
