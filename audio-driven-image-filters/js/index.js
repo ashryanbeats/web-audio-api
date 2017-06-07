@@ -62,7 +62,7 @@ function handleUserMediaError(err) {
 }
 
 function createProcessor() {
-  const processor = audioContext.createScriptProcessor(2048);
+  const processor = audioContext.createScriptProcessor();
   processor.volume = 0;
 
   processor.onaudioprocess = handleAudioProcess;
@@ -84,7 +84,6 @@ function handleAudioProcess(e) {
 
   let average = sum / buffer.length;
   this.volume = Math.floor(average * micSensitivityValue);
-  console.log(micSensitivityValue);
 
   applyImageGlitch(this.volume);
 }
