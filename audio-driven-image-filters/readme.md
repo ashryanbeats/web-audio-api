@@ -11,5 +11,5 @@
 
 ## Read more
 
-1. []()
-1. []()
+1. [About the repo for the audio-driven image effects demo](https://blog.ashryan.io/repo-for-the-audio-driven-image-effects-demo/)
+1. [Original post](https://blog.ashryan.io/audio-driven-image-effects/)
