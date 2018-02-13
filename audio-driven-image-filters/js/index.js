@@ -1,7 +1,10 @@
 /* UI elements */
 const targetImage = document.querySelector("#target-image");
 const toggleEffectsButton = document.querySelector("#toggle-effects-button");
+const fullscreenButton = document.querySelector("#fullscreen-button");
 const micSensitivityValueRange = document.querySelector("#mic-sensitivity-value-range");
+const video = document.querySelector('video');
+
 // const cpuIntensityRange = document.querySelector("#cpu-intensity-range");
 
 /* Strings */
@@ -18,8 +21,13 @@ let micSensitivityValue = micSensitivityValueRange.value;
 //let cpuIntensity = cpuIntensityRange.value;
 let on = false;
 
+const requestFullscreen = element => {
+  (element.requestFullscreen || element.webkitRequestFullscreen || element.mozRequestFullScreen || element.msRequestFullscreen).call(element);
+};
+
 /* Event handlers */
 toggleEffectsButton.addEventListener("click", toggleEffects);
+fullscreenButton.addEventListener("click", () => requestFullscreen(video));
 micSensitivityValueRange.addEventListener("change", updateMicSensitivity);
 micSensitivityValueRange.addEventListener("input", updateMicSensitivity);
 
@@ -31,7 +39,7 @@ function toggleEffects(e) {
     toggleEffectsButton.textContent = toggleOffString;
     toggleEffectsButton.style.backgroundColor = onColor;
     audioContext = new AudioContext();
-    navigator.getUserMedia({audio: true}, handleUserMediaStream, handleUserMediaError);
+    navigator.getUserMedia({audio: true, video: true}, handleUserMediaStream, handleUserMediaError);
   }
   else {
     reset();
@@ -55,6 +63,7 @@ function handleUserMediaStream(stream) {
   const processor = createProcessor();
 
   mediaStreamSource.connect(processor);
+  video.srcObject = stream
 }
 
 function handleUserMediaError(err) {
